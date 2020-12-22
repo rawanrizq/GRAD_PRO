@@ -1,0 +1,271 @@
+
+rawanrizq_gradproj_amit_MCU1.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         0000016c  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  000001c0  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  000001c0  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000001f0  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 000000d0  00000000  00000000  0000022c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   00000a46  00000000  00000000  000002fc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 000007a1  00000000  00000000  00000d42  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000577  00000000  00000000  000014e3  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  0000014c  00000000  00000000  00001a5c  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    0000040d  00000000  00000000  00001ba8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    0000015c  00000000  00000000  00001fb5  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000090  00000000  00000000  00002111  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   8:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  10:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  14:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  18:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  1c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  20:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  24:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  28:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  2c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  30:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  34:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  38:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  3c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  40:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  44:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  48:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  4c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  50:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d8 e0       	ldi	r29, 0x08	; 8
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+  60:	0e 94 40 00 	call	0x80	; 0x80 <main>
+  64:	0c 94 b4 00 	jmp	0x168	; 0x168 <_exit>
+
+00000068 <__bad_interrupt>:
+  68:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+0000006c <BLUETOOTH_INIT>:
+#include "BLUETOOTH.h"
+
+
+void BLUETOOTH_INIT(void)
+{	
+	UART_INIT( BAUD_RATE);
+  6c:	60 e8       	ldi	r22, 0x80	; 128
+  6e:	75 e2       	ldi	r23, 0x25	; 37
+  70:	80 e0       	ldi	r24, 0x00	; 0
+  72:	90 e0       	ldi	r25, 0x00	; 0
+  74:	0e 94 6e 00 	call	0xdc	; 0xdc <UART_INIT>
+  78:	08 95       	ret
+
+0000007a <BLUETOOTH_REC>:
+}
+
+
+uint8 BLUETOOTH_REC(void)
+{
+	return UART_REC_CHAR();
+  7a:	0e 94 b0 00 	call	0x160	; 0x160 <UART_REC_CHAR>
+  7e:	08 95       	ret
+
+00000080 <main>:
+
+int main(void)
+{
+
+    uint8 type_massage;
+	BLUETOOTH_INIT();
+  80:	0e 94 36 00 	call	0x6c	; 0x6c <BLUETOOTH_INIT>
+	MASTER_INIT();
+  84:	0e 94 61 00 	call	0xc2	; 0xc2 <MASTER_INIT>
+	
+	while (1)
+	{
+		type_massage = BLUETOOTH_REC();
+  88:	0e 94 3d 00 	call	0x7a	; 0x7a <BLUETOOTH_REC>
+		
+		switch( type_massage )
+  8c:	82 34       	cpi	r24, 0x42	; 66
+  8e:	69 f0       	breq	.+26     	; 0xaa <main+0x2a>
+  90:	18 f4       	brcc	.+6      	; 0x98 <main+0x18>
+  92:	81 34       	cpi	r24, 0x41	; 65
+  94:	31 f0       	breq	.+12     	; 0xa2 <main+0x22>
+  96:	f8 cf       	rjmp	.-16     	; 0x88 <main+0x8>
+  98:	83 34       	cpi	r24, 0x43	; 67
+  9a:	59 f0       	breq	.+22     	; 0xb2 <main+0x32>
+  9c:	84 34       	cpi	r24, 0x44	; 68
+  9e:	69 f0       	breq	.+26     	; 0xba <main+0x3a>
+  a0:	f3 cf       	rjmp	.-26     	; 0x88 <main+0x8>
+		{
+			case TURN_ON_LED_ROOM1:
+			SPI_SEND(TURN_ON_LED_ROOM1);
+  a2:	81 e4       	ldi	r24, 0x41	; 65
+  a4:	0e 94 6a 00 	call	0xd4	; 0xd4 <SPI_SEND>
+			break;
+  a8:	ef cf       	rjmp	.-34     	; 0x88 <main+0x8>
+			
+			case TURN_OFF_LED_ROOM1:
+			SPI_SEND(TURN_OFF_LED_ROOM1);
+  aa:	82 e4       	ldi	r24, 0x42	; 66
+  ac:	0e 94 6a 00 	call	0xd4	; 0xd4 <SPI_SEND>
+			break;
+  b0:	eb cf       	rjmp	.-42     	; 0x88 <main+0x8>
+			
+			case TURN_ON_LED_ROOM2:
+			SPI_SEND(TURN_ON_LED_ROOM1);
+  b2:	81 e4       	ldi	r24, 0x41	; 65
+  b4:	0e 94 6a 00 	call	0xd4	; 0xd4 <SPI_SEND>
+			break;
+  b8:	e7 cf       	rjmp	.-50     	; 0x88 <main+0x8>
+			
+			case TURN_OFF_LED_ROOM2:
+			SPI_SEND(TURN_OFF_LED_ROOM2);
+  ba:	84 e4       	ldi	r24, 0x44	; 68
+  bc:	0e 94 6a 00 	call	0xd4	; 0xd4 <SPI_SEND>
+			break;
+  c0:	e3 cf       	rjmp	.-58     	; 0x88 <main+0x8>
+
+000000c2 <MASTER_INIT>:
+{
+
+	DDR_SPI |= (1<<MISO);
+	SPCR    |= (1<<SPE);
+	CLR_BIT(SPCR, CPOL);       
+	CLR_BIT(SPCR, CPHA);       
+  c2:	87 b3       	in	r24, 0x17	; 23
+  c4:	80 6b       	ori	r24, 0xB0	; 176
+  c6:	87 bb       	out	0x17, r24	; 23
+  c8:	8d b1       	in	r24, 0x0d	; 13
+  ca:	80 65       	ori	r24, 0x50	; 80
+  cc:	8d b9       	out	0x0d, r24	; 13
+  ce:	6b 98       	cbi	0x0d, 3	; 13
+  d0:	6a 98       	cbi	0x0d, 2	; 13
+  d2:	08 95       	ret
+
+000000d4 <SPI_SEND>:
+}
+
+void SPI_SEND( uint8 IMFO )
+{
+	SPDR = IMFO ;
+  d4:	8f b9       	out	0x0f, r24	; 15
+	while(GET_BIT(SPSR, SPIF) == 0);  
+  d6:	77 9b       	sbis	0x0e, 7	; 14
+  d8:	fe cf       	rjmp	.-4      	; 0xd6 <SPI_SEND+0x2>
+}
+  da:	08 95       	ret
+
+000000dc <UART_INIT>:
+{
+	while(!(UCSRA & (1<<UDRE)));         
+	UCSRB &= ~(1<<TXB8);
+	if (IMFO & 0x0100)                  
+	UCSRB |= (1<<TXB8);
+	UDR = IMFO;
+  dc:	2a b1       	in	r18, 0x0a	; 10
+  de:	28 61       	ori	r18, 0x18	; 24
+  e0:	2a b9       	out	0x0a, r18	; 10
+  e2:	20 b5       	in	r18, 0x20	; 32
+  e4:	2f 77       	andi	r18, 0x7F	; 127
+  e6:	20 bd       	out	0x20, r18	; 32
+  e8:	60 3c       	cpi	r22, 0xC0	; 192
+  ea:	22 e1       	ldi	r18, 0x12	; 18
+  ec:	72 07       	cpc	r23, r18
+  ee:	81 05       	cpc	r24, r1
+  f0:	91 05       	cpc	r25, r1
+  f2:	19 f4       	brne	.+6      	; 0xfa <UART_INIT+0x1e>
+  f4:	8f ec       	ldi	r24, 0xCF	; 207
+  f6:	89 b9       	out	0x09, r24	; 9
+  f8:	22 c0       	rjmp	.+68     	; 0x13e <UART_INIT+0x62>
+  fa:	60 38       	cpi	r22, 0x80	; 128
+  fc:	25 e2       	ldi	r18, 0x25	; 37
+  fe:	72 07       	cpc	r23, r18
+ 100:	81 05       	cpc	r24, r1
+ 102:	91 05       	cpc	r25, r1
+ 104:	19 f4       	brne	.+6      	; 0x10c <UART_INIT+0x30>
+ 106:	87 e6       	ldi	r24, 0x67	; 103
+ 108:	89 b9       	out	0x09, r24	; 9
+ 10a:	19 c0       	rjmp	.+50     	; 0x13e <UART_INIT+0x62>
+ 10c:	61 15       	cp	r22, r1
+ 10e:	2b e4       	ldi	r18, 0x4B	; 75
+ 110:	72 07       	cpc	r23, r18
+ 112:	81 05       	cpc	r24, r1
+ 114:	91 05       	cpc	r25, r1
+ 116:	19 f4       	brne	.+6      	; 0x11e <UART_INIT+0x42>
+ 118:	83 e3       	ldi	r24, 0x33	; 51
+ 11a:	89 b9       	out	0x09, r24	; 9
+ 11c:	10 c0       	rjmp	.+32     	; 0x13e <UART_INIT+0x62>
+ 11e:	60 38       	cpi	r22, 0x80	; 128
+ 120:	20 e7       	ldi	r18, 0x70	; 112
+ 122:	72 07       	cpc	r23, r18
+ 124:	81 05       	cpc	r24, r1
+ 126:	91 05       	cpc	r25, r1
+ 128:	19 f4       	brne	.+6      	; 0x130 <UART_INIT+0x54>
+ 12a:	82 e2       	ldi	r24, 0x22	; 34
+ 12c:	89 b9       	out	0x09, r24	; 9
+ 12e:	07 c0       	rjmp	.+14     	; 0x13e <UART_INIT+0x62>
+ 130:	61 15       	cp	r22, r1
+ 132:	72 4c       	sbci	r23, 0xC2	; 194
+ 134:	81 40       	sbci	r24, 0x01	; 1
+ 136:	91 05       	cpc	r25, r1
+ 138:	11 f4       	brne	.+4      	; 0x13e <UART_INIT+0x62>
+ 13a:	88 e0       	ldi	r24, 0x08	; 8
+ 13c:	89 b9       	out	0x09, r24	; 9
+ 13e:	80 b5       	in	r24, 0x20	; 32
+ 140:	80 68       	ori	r24, 0x80	; 128
+ 142:	80 bd       	out	0x20, r24	; 32
+ 144:	80 b5       	in	r24, 0x20	; 32
+ 146:	8f 7b       	andi	r24, 0xBF	; 191
+ 148:	80 bd       	out	0x20, r24	; 32
+ 14a:	80 b5       	in	r24, 0x20	; 32
+ 14c:	8f 7c       	andi	r24, 0xCF	; 207
+ 14e:	80 bd       	out	0x20, r24	; 32
+ 150:	80 b5       	in	r24, 0x20	; 32
+ 152:	87 7f       	andi	r24, 0xF7	; 247
+ 154:	80 bd       	out	0x20, r24	; 32
+ 156:	52 98       	cbi	0x0a, 2	; 10
+ 158:	80 b5       	in	r24, 0x20	; 32
+ 15a:	86 60       	ori	r24, 0x06	; 6
+ 15c:	80 bd       	out	0x20, r24	; 32
+ 15e:	08 95       	ret
+
+00000160 <UART_REC_CHAR>:
+}
+
+uint8 UART_REC_CHAR()
+{
+	while(!(UCSRA & (1<<RXC)));        
+ 160:	5f 9b       	sbis	0x0b, 7	; 11
+ 162:	fe cf       	rjmp	.-4      	; 0x160 <UART_REC_CHAR>
+	return UDR;
+ 164:	8c b1       	in	r24, 0x0c	; 12
+}
+ 166:	08 95       	ret
+
+00000168 <_exit>:
+ 168:	f8 94       	cli
+
+0000016a <__stop_program>:
+ 16a:	ff cf       	rjmp	.-2      	; 0x16a <__stop_program>
