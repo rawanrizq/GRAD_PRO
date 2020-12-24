@@ -12,10 +12,10 @@
 
 #include "STD.h"
 
-#define TURN_ON_LED_ROOM1  'A'
-#define TURN_OFF_LED_ROOM1 'B'   
-#define TURN_ON_LED_ROOM2  'C'
-#define TURN_OFF_LED_ROOM2 'D'
+#define TURN_ON_LED_ROOM1  '1'
+#define TURN_OFF_LED_ROOM1 '2'   
+#define TURN_ON_LED_ROOM2  '3'
+#define TURN_OFF_LED_ROOM2 '4'
 
 
 #endif /* MASSEGES_H_ */
